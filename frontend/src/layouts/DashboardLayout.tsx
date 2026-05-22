@@ -38,22 +38,22 @@ export default function DashboardLayout() {
               Categories
             </Link>
             <Link
-              to="/dashboard/events"
+              to="/dashboard/speakers"
               className="p-4 text-white text-lg hover:bg-black transition ease-in-out duration-150"
             >
               <span>
                 <CalendarIcon size={18} />
               </span>
-              Events
+              Speakers
             </Link>
             <Link
-              to="/dashboard/speakers"
+              to="/dashboard/events"
               className="p-4 text-white text-lg hover:bg-black transition ease-in-out duration-150"
             >
               <span>
                 <UsersIcon size={18} />
               </span>
-              Speakers
+              Events
             </Link>
             <Link
               to="/dashboard/biodata"

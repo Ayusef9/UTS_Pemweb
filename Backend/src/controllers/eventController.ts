@@ -4,11 +4,16 @@ import prisma from "../lib/db.js";
 export const getAllEvents = async (req: Request, res: Response) => {
   try {
     const events = await prisma.event.findMany({
+      include: {
+        category: true,
+
+        speaker: true,
+      },
       orderBy: {
         createdAt: "desc",
       },
     });
-    //menampilkan ke user
+
     res.json(events);
   } catch (error) {
     //jika error
@@ -21,10 +26,9 @@ export const getAllEvents = async (req: Request, res: Response) => {
 
 export const createEvent = async (req: Request, res: Response) => {
   try {
-    //jika berhasil
     const { name, categoryId, speakerId, location, dateEvent, description } =
       req.body;
-    //tambahkan validasi
+
     if (
       !name ||
       !categoryId ||

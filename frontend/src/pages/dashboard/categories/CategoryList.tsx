@@ -49,9 +49,9 @@ export default function CategoryList() {
       {/* Table */}
       <table className="w-full border border-collapse table-fixed">
         <thead>
-          <tr className="bg-[#852e4e] text-white">
-            <th className="border px-4 py-2 text-left w-16">ID</th>
-            <th className="border px-4 py-2 text-left">Name</th>
+          <tr className="bg-[#e388a9] text-white">
+            <th className="border px-4 py-2 text-center w-16">ID</th>
+            <th className="border px-4 py-2 text-center">Name</th>
             <th className="border px-4 py-2 text-center w-40">Action</th>
           </tr>
         </thead>

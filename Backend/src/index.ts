@@ -9,19 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-//HOME
 app.get("/", (req, res) => {
   res.send("API Running");
 });
 
-//ROUTES
 app.use("/events", eventRoutes);
-
 app.use("/categories", categoryRoutes);
-
 app.use("/speakers", speakerRoutes);
 
-//SERVER
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });

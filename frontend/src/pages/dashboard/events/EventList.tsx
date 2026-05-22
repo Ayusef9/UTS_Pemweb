@@ -6,6 +6,12 @@ import { Button } from "../../../components/ui/Button";
 type Event = {
   id: number;
   name: string;
+  category: {
+    name: string;
+  };
+  speaker: {
+    name: string;
+  };
   location: string;
   description: string;
   dateEvent: string;
@@ -52,11 +58,13 @@ export default function EventList() {
       {/* Table */}
       <table className="w-full border border-collapse table-fixed">
         <thead>
-          <tr className="bg-[#852e4e] text-white">
-            <th className="border px-4 py-2 text-left w-16">ID</th>
-            <th className="border px-4 py-2 text-left">Name</th>
-            <th className="border px-4 py-2 text-left">Location</th>
-            <th className="border px-4 py-2 text-left w-32">Date</th>
+          <tr className="bg-[#e388a9] text-white">
+            <th className="border px-4 py-2 text-center w-16">ID</th>
+            <th className="border px-4 py-2 text-center">Name</th>
+            <th className="border px-4 py-2 text-center">Category</th>
+            <th className="border px-4 py-2 text-center">Speaker</th>
+            <th className="border px-4 py-2 text-center">Location</th>
+            <th className="border px-4 py-2 text-center w-32">Date</th>
             <th className="border px-4 py-2 text-center w-40">Action</th>
           </tr>
         </thead>
@@ -65,6 +73,12 @@ export default function EventList() {
             <tr key={event.id} className="border hover:bg-slate-50">
               <td className="border px-4 py-2">{event.id}</td>
               <td className="border px-4 py-2">{event.name}</td>
+              <td className="border px-4 py-2">
+                {event.category?.name || "N/A"}
+              </td>
+              <td className="border px-4 py-2">
+                {event.speaker?.name || "N/A"}
+              </td>
               <td className="border px-4 py-2">{event.location}</td>
               <td className="border px-4 py-2">
                 {new Date(event.dateEvent).toLocaleDateString()}
