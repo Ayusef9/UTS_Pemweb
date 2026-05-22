@@ -1,14 +1,12 @@
 import type { Request, Response } from "express";
-import prisma  from "../lib/db.js";
+import prisma from "../lib/db.js";
 
-//1. menampilkan data
-export const getAllEvents = async ( req: Request, res: Response) => {
-    try {
-    //jika berhasil, select * from events
+export const getAllEvents = async (req: Request, res: Response) => {
+  try {
     const events = await prisma.event.findMany({
       orderBy: {
         createdAt: "desc",
-    },
+      },
     });
     //menampilkan ke user
     res.json(events);
@@ -21,18 +19,11 @@ export const getAllEvents = async ( req: Request, res: Response) => {
   }
 };
 
-//2. menyimpan data
 export const createEvent = async (req: Request, res: Response) => {
   try {
     //jika berhasil
-    const {
-      name,
-      categoryId,
-      speakerId,
-      location,
-      dateEvent,
-      description
-    } = req.body;
+    const { name, categoryId, speakerId, location, dateEvent, description } =
+      req.body;
     //tambahkan validasi
     if (
       !name ||
@@ -57,21 +48,19 @@ export const createEvent = async (req: Request, res: Response) => {
         description,
       },
     });
-    //kasih tau ke user
+
     res.status(201).json({
       message: "Data event berhasil disimpan",
       data: newEvent,
     });
   } catch (error) {
-    //jika ada error
     res.status(500).json({
       message: "Gagal membuat event",
-      error
+      error,
     });
   }
 };
 
-//3. menampilkan data berdasarkan id
 export const eventById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -94,18 +83,11 @@ export const eventById = async (req: Request, res: Response) => {
   }
 };
 
-//4. mengupdate data berdasarkan id
 export const updateById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const {
-      name,
-      categoryId,
-      speakerId,
-      location,
-      dateEvent,
-      description
-    } = req.body;
+    const { name, categoryId, speakerId, location, dateEvent, description } =
+      req.body;
     const updateEvent = await prisma.event.update({
       where: {
         id: Number(id),
@@ -131,7 +113,6 @@ export const updateById = async (req: Request, res: Response) => {
   }
 };
 
-//5. menghapus data berdasarkan id
 export const deleteById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

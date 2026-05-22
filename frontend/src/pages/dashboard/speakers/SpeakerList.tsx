@@ -16,7 +16,6 @@ export default function SpeakerList() {
   const fetchSpeakers = async () => {
     try {
       const response = await api.get("/speakers");
-
       setSpeakers(response.data);
     } catch (error) {
       console.log(error);
@@ -28,9 +27,11 @@ export default function SpeakerList() {
   }, []);
 
   const handleDelete = async (id: number) => {
+    const confirmDelete = confirm("Yakin ingin menghapus speaker?");
+    if (!confirmDelete) return;
+
     try {
       await api.delete(`/speakers/${id}`);
-
       fetchSpeakers();
     } catch (error) {
       console.log(error);
@@ -38,89 +39,50 @@ export default function SpeakerList() {
   };
 
   return (
-    <div className="p-6">
-      <div
-        className="
-            flex
-            justify-between
-            mb-6
-            "
-      >
-        <h1
-          className="
-                text-2xl
-                font-bold
-                "
-        >
-          Speaker List
-        </h1>
-
+    <div className="p-6 w-full">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Speaker List</h1>
         <Link to="/dashboard/speakers/create">
           <Button label="Tambah Speaker" variant="primary" />
         </Link>
       </div>
 
-      <table
-        className="
-            w-full
-            border
-            "
-      >
+      {/* Table */}
+      <table className="w-full border border-collapse">
         <thead>
-          <tr className="bg-slate-200">
-            <th>ID</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Image</th>
-            <th>Action</th>
+          <tr className="bg-[#852e4e] text-white">
+            <th className="border px-4 py-2 text-left w-16">ID</th>
+            <th className="border px-4 py-2 text-left">Name</th>
+            <th className="border px-4 py-2 text-left">Role</th>
+            <th className="border px-4 py-2 text-center w-24">Image</th>
+            <th className="border px-4 py-2 text-center w-40">Action</th>
           </tr>
         </thead>
-
         <tbody>
           {speakers.map((speaker) => (
-            <tr
-              key={speaker.id}
-              className="
-                        border
-                        text-center
-                        "
-            >
-              <td>{speaker.id}</td>
-
-              <td>{speaker.name}</td>
-
-              <td>{speaker.role}</td>
-
-              <td>
+            <tr key={speaker.id} className="border hover:bg-slate-50">
+              <td className="border px-4 py-2">{speaker.id}</td>
+              <td className="border px-4 py-2">{speaker.name}</td>
+              <td className="border px-4 py-2">{speaker.role}</td>
+              <td className="border px-4 py-2">
                 <img
                   src={speaker.image}
-                  alt=""
-                  className="
-                                w-16
-                                h-16
-                                object-cover
-                                mx-auto
-                                "
+                  alt={speaker.name}
+                  className="w-16 h-16 object-cover mx-auto rounded"
                 />
               </td>
-
-              <td
-                className="
-                            flex
-                            gap-2
-                            justify-center
-                            p-2
-                            "
-              >
-                <Link to={`/dashboard/speakers/edit/${speaker.id}`}>
-                  <Button label="Edit" variant="secondary" />
-                </Link>
-
-                <Button
-                  label="Delete"
-                  variant="danger"
-                  onClick={() => handleDelete(speaker.id)}
-                />
+              <td className="border px-4 py-2">
+                <div className="flex gap-2 justify-center">
+                  <Link to={`/dashboard/speakers/edit/${speaker.id}`}>
+                    <Button label="Edit" variant="secondary" />
+                  </Link>
+                  <Button
+                    label="Delete"
+                    variant="danger"
+                    onClick={() => handleDelete(speaker.id)}
+                  />
+                </div>
               </td>
             </tr>
           ))}
