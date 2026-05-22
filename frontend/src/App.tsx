@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -18,27 +18,39 @@ import Biodata from "./pages/dashboard/biodata/Biodata";
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<Login />} />
-      </Route>
-      <Route element={<ProtectedRoute />}>
-      <Route element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<DashboardIndex />} />
-        <Route path="/dashboard/categories" element={<CategoryList />} />
-        <Route path="/dashboard/categories/create" element={<CreateCategory />} />
-        <Route path="/dashboard/categories/edit/:id" element={<EditCategory />} />
-        <Route path="/dashboard/events" element={<EventList />} />
-        <Route path="/dashboard/events/create" element={<CreateEvent />} />
-        <Route path="/dashboard/events/edit/:id" element={<EditEvent />} />
-        <Route path="/dashboard/speakers" element={<SpeakerList />} />
-        <Route path="/dashboard/speakers/create" element={<CreateNewSpeaker />} />
-        <Route path="/dashboard/speakers/edit/:id" element={<EditSpeaker />} />
-        <Route path="/dashboard/biodata" element={<Biodata />} />
-        
-      </Route>
-      </Route>
-    </Routes>
+      <Routes>
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<DashboardIndex />} />
+            <Route path="/dashboard/categories" element={<CategoryList />} />
+            <Route
+              path="/dashboard/categories/create"
+              element={<CreateCategory />}
+            />
+            <Route
+              path="/dashboard/categories/edit/:id"
+              element={<EditCategory />}
+            />
+            <Route path="/dashboard/events" element={<EventList />} />
+            <Route path="/dashboard/events/create" element={<CreateEvent />} />
+            <Route path="/dashboard/events/edit/:id" element={<EditEvent />} />
+            <Route path="/dashboard/speakers" element={<SpeakerList />} />
+            <Route
+              path="/dashboard/speakers/create"
+              element={<CreateNewSpeaker />}
+            />
+            <Route
+              path="/dashboard/speakers/edit/:id"
+              element={<EditSpeaker />}
+            />
+            <Route path="/dashboard/biodata" element={<Biodata />} />
+          </Route>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
